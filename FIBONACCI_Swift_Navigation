@@ -1,0 +1,101 @@
+# This code is written to conform to the prompt in my application
+# to Swift Navigation. 
+#
+# This program will generate n Fibonacci numbers and print
+# "Buzz" when F(n) is divisible by 3
+# "Fizz" when F(n) is divisible by 5
+# "FizzBuzz" when F(n) is divisible by 15
+# "BuzzFizz" when F(n) is prime
+#  the value F(n) otherwise
+#
+#
+#In truth, my output will be two columns. The left is simply the Fibonacci
+#sequence and the column on the right is the requested output. In the workplace,
+#I would not include the column on the left but I thought it was easier to 
+#read and so I am leaving it for purposes of review. Thanks for your time.
+#
+#
+
+
+# This function will determine the last Fibonacci number in the sequence
+def F(n):
+    
+    #The Fibonacci sequence starts with 0,1
+    if n < 2:
+        return n
+    
+    # The value of a Fibonacci number is the sum of the previous two
+    return (F(n-2) + F(n-1))
+
+
+#This function determines if a number is prime
+def is_prime(n):    
+    
+    # Prime numbers are greater than 1
+    if (n > 1):
+        
+        # If the number is divisible by any integer, its NOT prime
+       for i in range(2,n):
+           if (n % i) == 0:
+               return False
+               break
+           
+        # if the number is not divisible by any inter it IS prime
+       else:
+           return True
+           
+        # the number 0 is NOT prime
+    else:   
+       return False
+
+# Tell the user what the program does
+print(
+"""
+ This program will generate n Fibonacci numbers and print
+ "Buzz" when F(n) is divisible by 3
+ "Fizz" when F(n) is divisible by 5
+ "FizzBuzz" when F(n) is divisible by 15
+ "BuzzFizz" when F(n) is prime
+  the value F(n) otherwise
+
+""")
+
+
+#Promt the user to enter a number
+print ("\nPLEASE ENTER AN INTEGER BELOW")
+n = int(input("How many Fibonnacci numbers would you like to see? "))
+
+
+
+# Now we print the appropriate messages for each Fibonacci number
+
+#First we make a nice format to fascilitate reading results
+fmt = "{fib:d}\t{code:s}\t"
+fmt2 ="{fib:d}\t{fib:d}\t"
+
+#Next, iterate through our Fibonacci Sequence
+for i in range(n):
+    
+    # Zero is neither prime nor divisible by any number so we leave it
+    if (i==0):
+        print (fmt2.format(fib=F(i)))
+        
+    # Determine if the number is disible by 3, but not 5 (or 15)
+    elif (F(i) % 3) == 0 and not (F(i) % 5 == 0):
+        print (fmt.format(fib=F(i),code="Buzz"))
+    
+    # Determine if the number is divisible by 5, but not 3 (or 15)
+    elif (F(i) % 5) == 0 and not (F(i) % 3 == 0):
+        print (fmt.format(fib=F(i),code="Fizz"))
+    
+    # Determine if number is divible by 15 (3 and 5)
+    elif (F(i) % 15 == 0):
+        print (fmt.format(fib=F(i),code="FizzBuzz"))
+    
+    # Decide if the number is prime by calling function defined above
+    elif is_prime(F(i)) == True:
+        print(fmt.format(fib=F(i),code="BuzzFizz"))    
+        
+    # Otherwise, print the Fibonacci number     
+    else:
+        print (fmt2.format(fib=F(i)))
